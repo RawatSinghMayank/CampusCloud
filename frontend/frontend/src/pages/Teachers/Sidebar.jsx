@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import {
@@ -21,14 +21,13 @@ const SidebarContainer = styled.div`
   top: 0;
   left: 0;
   width: ${({ $isOpen }) => ($isOpen ? "250px" : "80px")};
-  width: 250px;
   height: 100%;
-  background-color: rgb(34, 36, 141); /* Dark blue background */
+  background-color: rgb(34, 36, 141);
   color: white;
-  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-y: auto;
   padding-top: 60px;
-  transition: width 0.3s ease; /* Smooth width transition */
-  z-index: 100; /* Ensure sidebar stays above content */
+  transition: width 0.3s ease;
+  z-index: 100;
 `;
 
 const SidebarHeader = styled.div`
@@ -48,10 +47,10 @@ const SidebarNavItem = styled.li`
   align-items: center;
   padding: 12px 20px;
   font-size: 18px;
-  border-bottom: 1px solid #34495e; /* Darker border */
+  border-bottom: 1px solid #34495e;
   transition: background-color 0.3s ease;
   &:hover {
-    background-color: #34495e; /* Darker background on hover */
+    background-color: #34495e;
   }
 `;
 
@@ -67,7 +66,11 @@ const SidebarIcon = styled.div`
 
 const Logo = styled.img`
   width: 50px;
-  height: auto;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  /* Optional: Add a border for a framed effect */
+  /* border: 2px solid white; */
 `;
 
 const ToggleButton = styled.div`
@@ -76,7 +79,7 @@ const ToggleButton = styled.div`
   right: 0;
   width: 30px;
   height: 30px;
-  background-color: #34495e; /* Darker background */
+  background-color: #34495e;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -93,6 +96,24 @@ const ToggleIcon = styled.span`
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const [profileImage, setProfileImage] = useState(localStorage.getItem("profileImage") || bg1);
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const newImage = localStorage.getItem("profileImage") || bg1;
+      setProfileImage(newImage);
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    handleStorageChange();
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      if (profileImage && profileImage.startsWith("blob:")) {
+        URL.revokeObjectURL(profileImage);
+      }
+    };
+  }, [profileImage]);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -101,7 +122,13 @@ const Sidebar = () => {
   return (
     <SidebarContainer $isOpen={isOpen}>
       <SidebarHeader>
-        <Logo src={bg1} alt="Logo" />
+        <Logo
+          src={profileImage}
+          alt="Profile Logo"
+          onError={(e) => {
+            e.target.src = bg1;
+          }}
+        />
       </SidebarHeader>
       <SidebarHeader>Teacher</SidebarHeader>
       <SidebarNav>
@@ -111,14 +138,12 @@ const Sidebar = () => {
           </SidebarIcon>
           <StyledLink to="/teacher/dashboard">Dashboard</StyledLink>
         </SidebarNavItem>
-
         <SidebarNavItem>
           <SidebarIcon>
             <BsPeople />
           </SidebarIcon>
           <StyledLink to="/teacher/students">Students</StyledLink>
         </SidebarNavItem>
-
         <SidebarNavItem>
           <SidebarIcon>
             <BsCalendar />
@@ -131,7 +156,6 @@ const Sidebar = () => {
           </SidebarIcon>
           <StyledLink to="/teacher/communication">Announcement</StyledLink>
         </SidebarNavItem>
-
         <SidebarNavItem>
           <SidebarIcon>
             <BsGear />

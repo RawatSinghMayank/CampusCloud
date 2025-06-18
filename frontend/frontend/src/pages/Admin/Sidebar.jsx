@@ -66,7 +66,14 @@ const SidebarIcon = styled.div`
 
 const Logo = styled.img`
   width: 50px;
-  height: auto;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  /* Optional: Add a border for a framed effect */
+  /* border: 2px solid white; */
+  /* Optional: Add padding or background */
+  /* padding: 2px; */
+  /* background-color: white; */
 `;
 
 const ToggleButton = styled.div`
@@ -130,7 +137,6 @@ const Sidebar = () => {
             </SidebarIcon>
             <StyledLink to="/admin/teachers">Teachers</StyledLink>
           </SidebarNavItem>
-
           <SidebarNavItem>
             <SidebarIcon>
               <BsChatDots />

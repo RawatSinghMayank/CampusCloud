@@ -3,16 +3,9 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import {
   BsGraphUp,
-  BsPeople,
-  BsPerson,
-  BsFileText,
-  BsBook,
-  BsGraphDown,
   BsCalendar,
-  BsGear,
   BsChatDots,
-  BsCalendarEvent,
-  BsQuestionSquare,
+  BsGear,
 } from "react-icons/bs";
 import bg1 from "../../assets/bg1.png";
 
@@ -21,7 +14,6 @@ const SidebarContainer = styled.div`
   top: 0;
   left: 0;
   width: ${({ $isOpen }) => ($isOpen ? "250px" : "80px")};
-  width: 250px;
   height: 100%;
   background-color: rgb(34, 36, 141); /* Dark blue background */
   color: white;
@@ -36,6 +28,7 @@ const SidebarHeader = styled.div`
   font-size: 24px;
   font-weight: bold;
   text-align: center;
+  display: ${({ $isOpen }) => ($isOpen ? "block" : "none")};
 `;
 
 const SidebarNav = styled.ul`
@@ -59,6 +52,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   color: white;
   margin-left: 10px;
+  display: ${({ $isOpen }) => ($isOpen ? "inline" : "none")};
 `;
 
 const SidebarIcon = styled.div`
@@ -97,38 +91,37 @@ const Sidebar = () => {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+
   return (
     <SidebarContainer $isOpen={isOpen}>
-      <SidebarHeader>
+      <SidebarHeader $isOpen={isOpen}>
         <Logo src={bg1} alt="Logo" />
       </SidebarHeader>
-      <SidebarHeader>Student</SidebarHeader>
+      <SidebarHeader $isOpen={isOpen}>Student</SidebarHeader>
       <SidebarNav>
         <SidebarNavItem>
           <SidebarIcon>
             <BsGraphUp />
           </SidebarIcon>
-          <StyledLink to="/student/dashboard">Dashboard</StyledLink>
+          <StyledLink $isOpen={isOpen} to="/student/dashboard">Dashboard</StyledLink>
         </SidebarNavItem>
-
         <SidebarNavItem>
           <SidebarIcon>
             <BsCalendar />
           </SidebarIcon>
-          <StyledLink to="/student/attendance">Attendance</StyledLink>
+          <StyledLink $isOpen={isOpen} to="/student/attendance">Attendance</StyledLink>
         </SidebarNavItem>
-
         <SidebarNavItem>
           <SidebarIcon>
             <BsChatDots />
           </SidebarIcon>
-          <StyledLink to="/student/communication">Announcement</StyledLink>
+          <StyledLink $isOpen={isOpen} to="/student/communication">Announcement</StyledLink>
         </SidebarNavItem>
         <SidebarNavItem>
           <SidebarIcon>
             <BsGear />
           </SidebarIcon>
-          <StyledLink to="/student/settings">Profile</StyledLink>
+          <StyledLink $isOpen={isOpen} to="/student/settings">Profile</StyledLink>
         </SidebarNavItem>
       </SidebarNav>
       <ToggleButton onClick={toggleSidebar}>

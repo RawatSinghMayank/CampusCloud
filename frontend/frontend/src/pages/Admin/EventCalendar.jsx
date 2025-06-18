@@ -16,13 +16,10 @@ import {
 
 const EventCalendar = () => {
   return (
-    <EventCalendarContainer>
-      <Sidebar />
+    
       <Content>
-        <h1>Events & Calendar</h1>
-        {/* */}
       </Content>
-    </EventCalendarContainer>
+   
   );
 };
 

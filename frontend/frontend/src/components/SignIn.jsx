@@ -14,7 +14,9 @@ import {
   ErrorMessage,
   ResetLink,
   Title,
+  BackgroundImage,
 } from "../styles/AuthStyles";
+import backgroundImage from "../assets/universityBackground.jpg";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -50,7 +52,7 @@ const SignIn = () => {
 
         navigate(
           response.data.redirectUrl ||
-            `/${response.data.role.toLowerCase}/dashboard`
+            `/${response.data.role.toLowerCase()}/dashboard`
         );
       }
     } catch (error) {
@@ -70,30 +72,33 @@ const SignIn = () => {
   };
 
   return (
-    <AuthContainer>
-      <Title>Campus Cloud University</Title>
-      <FormContainer onSubmit={handleSignIn}>
-        <InputField
-          type="email"
-          placeholder="University Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <InputField
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <SubmitButton type="submit" disabled={isLoading}>
-          {isLoading ? "Signing In..." : "Sign In"}
-        </SubmitButton>
-        <ResetLink onClick={handlePasswordReset}>Forgot Password?</ResetLink>
-        {error && <ErrorMessage>{error}</ErrorMessage>}
-      </FormContainer>
-    </AuthContainer>
+    <>
+      <BackgroundImage style={{ backgroundImage: `url(${backgroundImage})` }} />
+      <AuthContainer>
+        <Title >Campus Cloud University</Title>
+        <FormContainer onSubmit={handleSignIn}>
+          <InputField
+            type="email"
+            placeholder="University Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <InputField
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <SubmitButton type="submit" disabled={isLoading}>
+            {isLoading ? "Signing In..." : "Sign In"}
+          </SubmitButton>
+          <ResetLink onClick={handlePasswordReset}>Forgot Password?</ResetLink>
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+        </FormContainer>
+      </AuthContainer>
+    </>
   );
 };
 

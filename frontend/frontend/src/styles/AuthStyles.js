@@ -7,7 +7,7 @@ export const AuthContainer = styled.div`
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  
   padding: 2rem;
 `;
 
@@ -33,8 +33,10 @@ export const InputField = styled.input`
   margin-bottom: 1.2rem;
   border: 2px solid #e0e6ed;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 1em;
   transition: all 0.3s ease;
+  
+   box-sizing: border-box;
 
   &:focus {
     border-color: #4361ee;
@@ -43,7 +45,7 @@ export const InputField = styled.input`
   }
 
   &::placeholder {
-    color: #9aa5b1;
+    color: rgb(8, 58, 112);
   }
 `;
 
@@ -65,7 +67,7 @@ export const SubmitButton = styled.button`
     background-color: #3a56d4;
     transform: translateY(-2px);
   }
-
+background: linear-gradient(to right,rgb(4, 0, 0), #3a0ca3);
   &:active {
     transform: translateY(0);
   }
@@ -106,26 +108,39 @@ export const ResetLink = styled.span`
 
 // Title styling
 export const Title = styled.h1`
-  color: #2b2d42;
+  color:rgb(219, 138, 17);
   margin-bottom: 2rem;
-  font-size: 2rem;
+  font-size: 5rem;
   text-align: center;
-  font-weight: 700;
-  background: linear-gradient(to right, #4361ee, #3a0ca3);
+  font-weight: 9000;
+  background: linear-gradient(to right,rgb(4, 0, 0), #3a0ca3);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
 
 // Home page container
 export const HomeContainer = styled.div`
-  position: relative;
+  position: ;
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   width: 100%;
+  opacity:80%
 `;
 
+export const BackgroundImage = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+  filter: brightness(0.8);
+`;
 // School image background
 export const SchoolImage = styled.img`
   position: absolute;
